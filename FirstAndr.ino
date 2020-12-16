@@ -18,21 +18,29 @@
 //
 int ledPin = 13;
 int switchPin = 7;
+int analogPin = A0;
 // The setup() function runs once each time the micro-controller starts
 void setup()
 {
 	pinMode(ledPin, OUTPUT);
 	pinMode(switchPin, INPUT_PULLUP);
 	//Flash(500, 15);
+	Serial.begin(9600);
 }
 
 // Add the main program code into the continuous loop() function
 void loop()
 {
+	Serial.println(analogRead(analogPin) / 204.6);
+	int randomDelay = random(100, 1000);
 	if (digitalRead(switchPin) == LOW)	{
-		Flash(100, 1);
+		//Serial.println("Connected");
+		//Serial.println(digitalRead(switchPin));
+		Flash(randomDelay, 1);
 	}
 	else {
+		//Serial.println("Disconect");
+		//Serial.println(digitalRead(switchPin));
 		Flash(400, 1);
 	}
 
@@ -40,7 +48,7 @@ void loop()
 void Flash(int delayPeriod, int n) {
 	for (int i = 0; i < n;i++) {
 		digitalWrite(ledPin, HIGH);
-		delay(delayPeriod);
+		delay(1000);
 		digitalWrite(ledPin, LOW);
 		delay(delayPeriod);
 	}
